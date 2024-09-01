@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        /* Centering the container */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Styling the weather app container */
+        .weather-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px; /* Set a fixed width for the container */
+        }
+
+        /* Styling the input and button */
+        input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 22px); /* Adjusted width to account for padding */
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styling the weather result */
+        #weather-result {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Weather App Container -->
+    <div class="weather-container">
+        <h1>Weather App</h1>
+        <input type="text" id="city" placeholder="Enter city">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="weather-result"></div>
+    </div>
+
+    <!-- JavaScript to fetch weather data -->
+    <script>
+        function getWeather() {
+            const city = document.getElementById('city').value;
+            if (!city) {
+                alert('Please enter a city');
+                return;
+            }
+
+            fetch(`http://127.0.0.1:5000/weather?city=${city}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('weather-result').innerText = data.error;
+                    } else {
+                        document.getElementById('weather-result').innerHTML = `
+                            <p><strong>Weather in ${data.city}:</strong></p>
+                            <p>Temperature: ${data.temperature}°C</p>
+                            <p>Humidity: ${data.humidity}%</p>
+                            <p>Weather: ${data.description}</p>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('weather-result').innerText = 'An error occurred while fetching weather data.';
+                });
+        }
+    </script>
+</body>
+</html>
+
+
+
+
