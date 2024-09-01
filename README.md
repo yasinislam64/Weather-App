@@ -19,6 +19,7 @@ Before running the Weather App, ensure you have the following software installed
 - **pip**: Python package installer for installing required packages.
 - **Flask**: Flask package and CORS installed for creating the back-end
 - **Git**: Version control system for cloning the repository.
+- **OpenWeatherMap**: Create a OpenWeatherMap account for the your default API key you will need.
 
 ## Project Structure
 
